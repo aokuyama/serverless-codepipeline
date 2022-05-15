@@ -11,6 +11,13 @@ data "aws_caller_identity" "self" {}
 data "template_file" "buildspec" {
   template = file("./buildspec.yml")
   vars = {
-    cred_url = "http://169.254.170.2"
+    cred_url     = "http://169.254.170.2"
+    app_dir      = "./app"
+    bucket       = aws_s3_bucket.codepipeline.bucket
+    bucket_dir   = "/state/"
+    node_modules = "node_modules"
+    next         = ".next"
+    sls          = ".serverless"
+    sls_next     = ".serverless_nextjs"
   }
 }

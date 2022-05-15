@@ -11,6 +11,12 @@ phases:
   pre_build:
     commands:
       - echo pre build
+      - cd ${app_dir}
+      - aws s3 cp s3://${bucket}${bucket_dir}${node_modules}.tar.gz - | gzip -d | tar xf -
+      - aws s3 cp s3://${bucket}${bucket_dir}${next}.tar.gz - | gzip -d | tar xf -
+      - aws s3 cp s3://${bucket}${bucket_dir}${sls}.tar.gz - | gzip -d | tar xf -
+      - aws s3 cp s3://${bucket}${bucket_dir}${sls_next}.tar.gz - | gzip -d | tar xf -
+      - cd -
   build:
     commands:
       - echo build...
@@ -18,3 +24,9 @@ phases:
   post_build:
     commands:
       - echo post build
+      - cd ${app_dir}
+      - tar cf - ${node_modules} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${node_modules}.tar.gz
+      - tar cf - ${next} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${next}.tar.gz
+      - tar cf - ${sls} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${sls}.tar.gz
+      - tar cf - ${sls_next} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${sls_next}.tar.gz
+      - cd -
