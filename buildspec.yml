@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo install step...
+      - AWS_CRED=`curl ${cred_url}$${AWS_CONTAINER_CREDENTIALS_RELATIVE_URI}`
+      - AWS_ACCESS_KEY_ID=`echo $${AWS_CRED} | jq -r .AccessKeyId`
+      - AWS_SECRET_ACCESS_KEY=`echo $${AWS_CRED} | jq -r .SecretAccessKey`
+      - AWS_SESSION_TOKEN=`echo $${AWS_CRED} | jq -r .Token`
+  pre_build:
+    commands:
+      - echo pre build
+  build:
+    commands:
+      - echo build...
+      - docker-compose run deploy /bin/bash -c "yarn && NODE_ENV=production yarn next build && NODE_ENV=production components-v1"
+  post_build:
+    commands:
+      - echo post build
