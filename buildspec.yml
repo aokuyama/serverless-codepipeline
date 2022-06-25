@@ -12,10 +12,14 @@ phases:
     commands:
       - echo pre build
       - cd ${app_dir}
-      - aws s3 cp s3://${bucket}${bucket_dir}${node_modules}.tar.gz - | gzip -d | tar xf -
-      - aws s3 cp s3://${bucket}${bucket_dir}${next}.tar.gz - | gzip -d | tar xf -
-      - aws s3 cp s3://${bucket}${bucket_dir}${sls}.tar.gz - | gzip -d | tar xf -
-      - aws s3 cp s3://${bucket}${bucket_dir}${sls_next}.tar.gz - | gzip -d | tar xf -
+      - wc=`aws s3 ls s3://${bucket}${bucket_dir}${node_modules}.tar.gz | wc -c`
+      - if [ "$${wc}" -gt 0 ]; then echo "loading ${node_modules} ..."; aws s3 cp s3://${bucket}${bucket_dir}${node_modules}.tar.gz - | gzip -d | tar xf -; fi
+      - wc=`aws s3 ls s3://${bucket}${bucket_dir}${next}.tar.gz | wc -c`
+      - if [ "$${wc}" -gt 0 ]; then echo "loading ${next} ..."; aws s3 cp s3://${bucket}${bucket_dir}${next}.tar.gz - | gzip -d | tar xf -; fi
+      - wc=`aws s3 ls s3://${bucket}${bucket_dir}${sls}.tar.gz | wc -c`
+      - if [ "$${wc}" -gt 0 ]; then echo "loading ${sls} ..."; aws s3 cp s3://${bucket}${bucket_dir}${sls}.tar.gz - | gzip -d | tar xf -; fi
+      - wc=`aws s3 ls s3://${bucket}${bucket_dir}${sls_next}.tar.gz | wc -c`
+      - if [ "$${wc}" -gt 0 ]; then echo "loading ${sls_next} ..."; aws s3 cp s3://${bucket}${bucket_dir}${sls_next}.tar.gz - | gzip -d | tar xf -; fi
       - cd -
   build:
     commands:
@@ -25,8 +29,8 @@ phases:
     commands:
       - echo post build
       - cd ${app_dir}
-      - tar cf - ${node_modules} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${node_modules}.tar.gz
-      - tar cf - ${next} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${next}.tar.gz
-      - tar cf - ${sls} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${sls}.tar.gz
       - tar cf - ${sls_next} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${sls_next}.tar.gz
+      - tar cf - ${sls} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${sls}.tar.gz
+      - tar cf - ${next} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${next}.tar.gz
+      - tar cf - ${node_modules} | gzip --best | aws s3 cp - s3://${bucket}${bucket_dir}${node_modules}.tar.gz
       - cd -
