@@ -27,7 +27,7 @@ phases:
   build:
     commands:
       - echo build...
-      - docker-compose run deploy /bin/bash -c "yarn && NODE_ENV=production yarn next build && NODE_ENV=production components-v1"
+      - docker-compose -f ${docker_compose_file} run deploy /bin/bash -c "yarn && NODE_ENV=production yarn next build && NODE_ENV=production components-v1"
   post_build:
     commands:
       - echo post build

@@ -12,6 +12,7 @@ data "template_file" "buildspec" {
   template = file("./buildspec.yml")
   vars = {
     cred_url            = "http://169.254.170.2"
+    docker_compose_file = "deploy/docker-compose.yml"
     app_dir             = "./app"
     bucket              = aws_s3_bucket.codepipeline.bucket
     bucket_dir          = "/state/"
