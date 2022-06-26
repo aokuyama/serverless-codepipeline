@@ -8,6 +8,9 @@ phases:
       - AWS_ACCESS_KEY_ID=`echo $${AWS_CRED} | jq -r .AccessKeyId`
       - AWS_SECRET_ACCESS_KEY=`echo $${AWS_CRED} | jq -r .SecretAccessKey`
       - AWS_SESSION_TOKEN=`echo $${AWS_CRED} | jq -r .Token`
+      - DEPLOY_DOMAIN=${deploy_domain}
+      - DEPLOY_SUB_DOMAIN=${deploy_sub_domain}
+      - NEXT_PUBLIC_API_URL=${next_public_api_url}
   pre_build:
     commands:
       - echo pre build

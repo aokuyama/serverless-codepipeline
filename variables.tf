@@ -20,3 +20,15 @@ variable "branch-name_deploy" {
   type    = string
   default = "deploy"
 }
+variable "demo_deploy_domain" {
+  type    = string
+  default = "example.com"
+}
+variable "demo_deploy_sub_domain" {
+  type    = string
+  default = "demo"
+}
+variable "demo_next_public_api_url" {
+  type    = string
+  default = "https://api.example.com"
+}
