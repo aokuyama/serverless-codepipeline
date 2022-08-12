@@ -32,3 +32,17 @@ variable "demo_next_public_api_url" {
   type    = string
   default = "https://api.example.com"
 }
+variable "demo_image_allow_domain" {
+  type    = string
+  default = "api.example.com"
+}
+variable "firebase_env" {
+  type = object({
+    api_key           = string
+    auth_domain       = string
+    project_id        = string
+    storage_bucket    = string
+    message_sender_id = string
+    app_id            = string
+  })
+}
