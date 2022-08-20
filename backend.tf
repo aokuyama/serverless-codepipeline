@@ -30,5 +30,7 @@ data "template_file" "buildspec" {
     next_public_firebase_storage_bucket    = var.firebase_env.storage_bucket
     next_public_firebase_message_sender_id = var.firebase_env.message_sender_id
     next_public_firebase_app_id            = var.firebase_env.app_id
+    next_public_stripe_publishable_key     = var.stripe.publishable_key
+    next_public_stripe_premium_price       = var.stripe.premium_price
   }
 }

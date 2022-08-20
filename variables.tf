@@ -46,3 +46,9 @@ variable "firebase_env" {
     app_id            = string
   })
 }
+variable "stripe" {
+  type = object({
+    publishable_key = string
+    premium_price   = string
+  })
+}
