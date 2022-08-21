@@ -18,8 +18,8 @@ phases:
       - NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${next_public_firebase_storage_bucket}
       - NEXT_PUBLIC_FIREBASE_MESSAGE_SENDER_ID=${next_public_firebase_message_sender_id}
       - NEXT_PUBLIC_FIREBASE_APP_ID=${next_public_firebase_app_id}
-      - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${next_public_stripe_publishable_key}
       - NEXT_PUBLIC_STRIPE_PREMIUM_PRICE=${next_public_stripe_premium_price}
+      - NEXT_PUBLIC_STRIPE_VIP_PRICE=${next_public_stripe_vip_price}
   pre_build:
     commands:
       - echo pre build

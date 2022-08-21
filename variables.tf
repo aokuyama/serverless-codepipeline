@@ -48,7 +48,7 @@ variable "firebase_env" {
 }
 variable "stripe" {
   type = object({
-    publishable_key = string
-    premium_price   = string
+    premium_price = string
+    vip_price     = string
   })
 }
